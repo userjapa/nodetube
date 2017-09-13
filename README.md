@@ -14,7 +14,7 @@ npm start
 Required **mfpeg installed
 
 ## To use: 
-**1- Change the **path of **fmpg at **/build/config/youtube/youtube-to-mp3.js
-**2- Change the channelId of the object **body on **playlists.insert at **/build/config/youtube/youtube.js
+**1-** Change the **path** of **fmpg** at **/build/config/youtube/youtube-to-mp3.js**
+**2-** Change the channelId of the object **body** on **playlists.insert** at **/build/config/youtube/youtube.js**
 
 > Enjoy
