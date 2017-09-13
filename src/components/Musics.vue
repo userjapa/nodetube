@@ -106,6 +106,7 @@
           this.$data.autoplay = !this.$data.autoplay
           console.log(this.$data.autoplay)
           if (this.$data.autoplay) {
+            console.log(player);
             player.addEventListener('ended', () => {
               var index = this.$data.musics.findIndex(x => x.name === this.$data.play.name)
               if (++index < this.$data.musics.length - 1) {
