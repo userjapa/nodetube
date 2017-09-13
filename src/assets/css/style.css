@@ -1,0 +1,66 @@
+@import 'grid.css';
+button {
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    padding: 5px 10px;
+    margin: 2px;
+    border-radius: 15px;
+    outline: none;
+}
+
+.shad {
+    -webkit-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    padding: 2px 0;
+}
+
+.shad:hover {
+    box-shadow: 0px 0px 5px 5px #e0dede;
+}
+
+iframe {
+    border: 2px solid #4DBA87;
+    height: auto !important;
+}
+
+.right {
+    float: right;
+}
+
+.oncenter * {
+    margin: auto;
+    text-align: center
+}
+
+.full {
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+}
+
+.content {
+    width: 80%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form input, select {
+    border: 1px solid rgba(5,5,5,.33);
+    border-radius: 10px;
+    font-size: 15px;
+    height: 35px;
+    width: 40% !important;
+    max-width: 300px;
+    padding: 0 10px;
+}
+
+.form button {
+    width: 35% !important;
+    max-width: 150px;
+}
+
+@media only screen and (max-width: 600px) {
+    .content {
+        min-height: 200px;
+    }
+}
