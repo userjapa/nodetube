@@ -8,7 +8,7 @@
 # install dependencies
 npm i
 
-# run all tests
+# run application
 npm start
 ```
 Required **mfpeg** installed
