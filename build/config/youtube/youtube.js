@@ -7,90 +7,80 @@ module.exports = function () {
     return request.getAuth()
   }
 
-  this.getToken = (code) => {
-    return new Promise((resolve, reject) => {
-      request.getToken(code)
-        .then(
-          res => {
-            resolve(res)
-          })
-        .catch(
-          err => {
-            reject(err)
-          })
-    })
+  this.getToken = (code, callback) => {
+    request.getToken(code)
+      .then(
+        res => {
+          return callback(res)
+        })
+      .catch(
+        err => {
+          return callback(err)
+        })
   }
 
-  this.search = (txt, n) => {
-    return new Promise((resolve, reject) => {
-      var body = {
-        q: txt,
-        maxResults: n
-      }
-      request.search(body)
-        .then(
-          res => {
-            resolve(res)
-          })
-        .catch(
-          err => {
-            reject(err)
-          })
-    })
+  this.search = (txt, n, callback) => {
+    var body = {
+      q: txt,
+      maxResults: n
+    }
+    request.search(body)
+      .then(
+        res => {
+          return callback(res)
+        })
+      .catch(
+        err => {
+          return callback(err)
+        })
   }
-  this.getLists = () => {
-    return new Promise((resolve, reject) => {
-      var body = {
-        channelId: `UC3RbuqXHUjECRKgRvOtdJBA`
-      }
-      request.playlists.search(body)
-        .then(
-          res => {
-            resolve(res)
-          })
-        .catch(
-          err => {
-            reject(err)
-          })
-    })
+  this.getLists = (callback) => {
+    var body = {
+      channelId: `UC3RbuqXHUjECRKgRvOtdJBA`
+    }
+    request.playlists.search(body)
+      .then(
+        res => {
+          return callback(res)
+        })
+      .catch(
+        err => {
+          return callback(err)
+        })
   }
 
-  this.insertList = (name) => {
-    return new Promise((resolve, reject) => {
-      var body = {
-        resource: {
-          snippet: {
-            title: name
-          }
+  this.insertList = (name, callback) => {
+    var body = {
+      resource: {
+        snippet: {
+          title: name
         }
       }
-      request.playlists.insert(body)
-        .then(
-          res => {
-            resolve(res)
-          })
-        .catch(
-          err => {
-            reject(err)
-          })
-    })
+    }
+    request.playlists.insert(body)
+      .then(
+        res => {
+          return callback(res)
+        })
+      .catch(
+        err => {
+          return callback(err)
+        })
   }
 
-  this.deleteList = (id) => {
-    return new Promise((resolve, reject) => {
-      var body = {
-        id: id
-      }
-      request.playlists.delete(body)
-        .then(
-          res => {
-            resolve(res)
-          })
-        .catch(
-          err => {
-            reject(err)
-          })
-    })
+  this.deleteList = (id, callback) => {
+    var body = {
+      id: id
+    }
+    request.playlists.delete(body)
+      .then(
+        res => {
+          return callback(res)
+        })
+      .catch(
+        err => {
+          return callback(err)
+        })
   }
 
   return this

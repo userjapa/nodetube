@@ -33,7 +33,6 @@ module.exports = {
           reject(err)
         } else {
           myAuth.setCredentials(response)
-          console.log(`Token Response: ${response}`)
           resolve(response)
         }
       })
@@ -41,13 +40,15 @@ module.exports = {
   },
   search: (params) => {
     return new Promise((resolve, reject) => {
-      var options = Object.assign(part, params)
+      var options = {}
+      Object.assign(options, part, params)
+      console.log(JSON.stringify(options))
       youtube.search.list(options, (err, response) => {
         if (err) {
-          console.log(`Search Error: ${err}`)
+          console.log(`Search Error: ${JSON.stringify(err)}`)
           reject(err)
         } else {
-          console.log(`Search Response: ${response}`)
+          console.log(`Search Response: ${JSON.stringify(response)}`)
           resolve(response)
         }
       })
@@ -56,13 +57,14 @@ module.exports = {
   playlists: {
     search: (params) => {
       return new Promise((resolve, reject) => {
-        var options = Object.assign(part, params)
+        var options = {}
+        Object.assign(options, part, params)
+        console.log(JSON.stringify(options))
         youtube.playlists.list(options, (err, response) => {
           if (err) {
-            console.log(`Playlist Search Error: ${err}`)
+            console.log(`Playlist Search Error: ${JSON.stringify(err)}`)
             reject(err)
           } else {
-            console.log(`Playlist Search Response: ${response}`)
             resolve(response)
           }
         })        
@@ -70,13 +72,14 @@ module.exports = {
     },
     insert: (params) => {
       return new Promise((resolve, reject) => {
-        var options = Object.assign(part, params)
+        var options = {}
+        Object.assign(options, part, params)
+        console.log(JSON.stringify(params))
         youtube.playlists.insert(options, (err, response) => {
           if (err) {
-            console.log(`Playlist Insert Error: ${err}`)
+            console.log(`Playlist Insert Error: ${JSON.stringify(err)}`)
             reject(err)
           } else {
-            console.log(`Playlist Insert Response: ${response}`)
             resolve(response)
           }
         })
@@ -87,10 +90,9 @@ module.exports = {
         var options = Object.assign({auth: myAuth}, params)
         youtube.playlists.delete(options, (err, response) => {
           if (err) {
-            console.log(`PLaylist Delete Error: ${err}`)
+            console.log(`PLaylist Delete Error: ${JSON.stringify(err)}`)
             reject(err)
           } else {
-            console.log(`Playlist Delete Response: ${response}`)
             resolve(response)
           }
         })

@@ -43,11 +43,14 @@
     },
     methods: {
       search: function (txt) {
-        this.$http.post('/youtube/music', {
-          search: txt
+        this.$http.get('/youtube/music', {
+          params: {
+            search: txt
+          }
         })
         .then(
           response => {
+            console.log(response)
             this.$data.videos = response.body
           })
         .catch(
@@ -68,21 +71,22 @@
               if (!tmp.downloaded) {
                 tmp.downloaded = true
                 db.db.child(childSnapshot.key).update(tmp)
-                var aux = {
-                  id: el.id,
-                  name: el.name
-                }
-                console.log(aux.name)
-                this.$http.get('/youtube/music', {
-                  params: aux
-                })
+                this.$http.post('/youtube/music',
+                  {
+                    id: el.id,
+                    name: el.name
+                  })
                 .then(
                   response => {
-                    console.log('Finished')
+                    console.log(response)
                   })
                 .catch(
                   err => {
                     console.log(err)
+                  })
+                .finally(
+                  () => {
+                    console.log('Finished')
                   })
               } else {
                 alert('Já baixado!')
