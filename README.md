@@ -1,4 +1,4 @@
-# nodetube-govue
+# NodeTube
 
 > A Vue.js project
 
@@ -6,25 +6,15 @@
 
 ``` bash
 # install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
+npm i
 
 # run all tests
-npm test
+npm start
 ```
+Required **mfpeg installed
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## To use: 
+**1- Change the **path of **fmpg at **/build/config/youtube/youtube-to-mp3.js
+**2- Change the channelId of the object **body on **playlists.insert at **/build/config/youtube/youtube.js
+
+> Enjoy
