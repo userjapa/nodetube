@@ -64,7 +64,9 @@
             .then(
               response => {
                 console.log(response)
-              }, err => {
+              })
+            .catch(
+              err => {
                 console.log(err)
               })
           this.$firebaseRefs.musics.child(obj['.key']).remove()

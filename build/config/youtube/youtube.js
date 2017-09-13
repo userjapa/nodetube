@@ -13,7 +13,8 @@ module.exports = function () {
         .then(
           res => {
             resolve(res)
-          }, 
+          })
+        .catch(
           err => {
             reject(err)
           })
@@ -30,7 +31,8 @@ module.exports = function () {
         .then(
           res => {
             resolve(res)
-          }, 
+          })
+        .catch(
           err => {
             reject(err)
           })
@@ -45,7 +47,8 @@ module.exports = function () {
         .then(
           res => {
             resolve(res)
-          }, 
+          })
+        .catch(
           err => {
             reject(err)
           })
@@ -65,7 +68,8 @@ module.exports = function () {
         .then(
           res => {
             resolve(res)
-          },
+          })
+        .catch(
           err => {
             reject(err)
           })
@@ -81,7 +85,8 @@ module.exports = function () {
         .then(
           res => {
             resolve(res)
-          },
+          })
+        .catch(
           err => {
             reject(err)
           })

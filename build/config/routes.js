@@ -28,7 +28,8 @@ module.exports = app => {
         .then(
           response => {
             res.send(response)
-          }, 
+          })
+        .catch(
           err => {
             console.log(`Get Token: ${err}`)
             res.send(err)
@@ -51,7 +52,8 @@ module.exports = app => {
               return mapped
             })
             res.json(result)
-          },
+          })
+        .catch(
           err => {
             console.log(`Get Music: ${err}`)
             res.send(err)
@@ -69,8 +71,9 @@ module.exports = app => {
           resolve => {
             console.log(`Deleted ${req.query.name}`)
             res.send()
-          },
-        error => {
+          })
+        .catch(
+          error => {
             console.log(`Delete Music: ${error}`)
             res.send()
           })
@@ -90,7 +93,8 @@ module.exports = app => {
               return mapped
             })
             res.json(result)
-          },
+          })
+        .catch(
           err => {
             console.log(`Get List: ${err}`)
             res.send(err)
@@ -102,7 +106,8 @@ module.exports = app => {
         .then(
           response => {
             res.json(response)
-          },
+          })
+        .catch(
           err => {
             console.log(`Post List: ${err}`)
             res.send(err)
@@ -114,7 +119,8 @@ module.exports = app => {
         .then(
           response => {
             res.send(response)
-          },
+          })
+        .catch(
           err => {
             console.log(`Delete List: ${err}`)
             res.send(err)

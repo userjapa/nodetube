@@ -49,7 +49,9 @@
         .then(
           response => {
             this.$data.videos = response.body
-          }, error => {
+          })
+        .catch(
+          error => {
             console.log('Error' + JSON.stringify(error))
           })
       },
@@ -77,7 +79,9 @@
                 .then(
                   response => {
                     console.log('Finished')
-                  }, err => {
+                  })
+                .catch(
+                  err => {
                     console.log(err)
                   })
               } else {

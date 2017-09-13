@@ -28,7 +28,9 @@
             res => {
               this.$data.lists = res.data
               console.log(res)
-            }, err => {
+            })
+          .catch(
+            err => {
               console.log(err)
             })
       },
@@ -37,7 +39,9 @@
           .then(
             res => {
               console.log(res)
-            }, err => {
+            })
+          .catch(
+            err => {
               console.log(err)
             })
           .finally(() => {
@@ -49,7 +53,9 @@
           .then(
             res => {
               console.log(res)
-            }, err => {
+            })
+          .catch(
+            err => {
               console.log(err)
             })
           .finally(() => {
@@ -57,7 +63,7 @@
           })
       }
     },
-    beforeMount () {
+    created () {
       setTimeout(() => {
         this.get()
       }, 1000)
