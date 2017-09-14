@@ -29,7 +29,6 @@
 
 <script>
   import Firebase from './../modules/firebase'
-
   let db = new Firebase('/musics')
 
   export default {
@@ -52,6 +51,7 @@
           response => {
             console.log(response)
             this.$data.videos = response.body
+            this.$data.txt = ''
           })
         .catch(
           error => {
@@ -59,41 +59,36 @@
           })
       },
       download: function (el) {
-        el.name = el.name.replace(/[#?]/g, '')
-        db.check(el.id).then(response => {
-          if (!response) {
-            el.name = el.name
-            db.add(el)
-          }
+        if (!db.check(el)) {
+          alert('Already Downloaded!')
+        } else {
+          el.name = el.name.replace(/[#?]/g, '')
+          db.add(el)
           db.get(el).then(res => {
             res.forEach((childSnapshot) => {
               var tmp = childSnapshot.val()
-              if (!tmp.downloaded) {
-                tmp.downloaded = true
-                db.db.child(childSnapshot.key).update(tmp)
-                this.$http.post('/youtube/music',
-                  {
-                    id: el.id,
-                    name: el.name
-                  })
-                .then(
-                  response => {
-                    console.log(response)
-                  })
-                .catch(
-                  err => {
-                    console.log(err)
-                  })
-                .finally(
-                  () => {
-                    console.log('Finished')
-                  })
-              } else {
-                alert('Já baixado!')
-              }
+              tmp.downloaded = true
+              db.db.child(childSnapshot.key).update(tmp)
+              this.$http.post('/youtube/music',
+                {
+                  id: el.id,
+                  name: el.name
+                })
+              .then(
+                response => {
+                  console.log(response)
+                })
+              .catch(
+                err => {
+                  console.log(err)
+                })
+              .finally(
+                () => {
+                  console.log('Finished')
+                })
             })
           })
-        })
+        }
       }
     }
   }

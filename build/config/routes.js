@@ -33,16 +33,7 @@ module.exports = app => {
     .get((req, res) => {
       res.setHeader('Content-Type', 'application/json')
       tube.search(req.query.search, 6, (response) => {
-        var result = response.items.map(obj => {
-          var mapped = {
-            id: obj.id.videoId,
-            name: `${obj.snippet.title}.mp3`,
-            img: obj.snippet.thumbnails.high.url,
-            downloaded: false
-          }
-          return mapped
-        })
-        res.json(result)
+        res.json(response)
       })
     })
     .post((req, res) => {
@@ -55,19 +46,12 @@ module.exports = app => {
       file.delete(req.query.name)
       res.end()
     })
+
   app.route('/youtube/playlist')
     .get((req, res) => {
       res.setHeader('Content-Type', 'application/json')
       tube.getLists((response) => {
-        var result = response.items.map(obj => {
-          var mapped = {
-            id: obj.id,
-            img: obj.snippet.thumbnails.high.url,
-            name: obj.snippet.title
-          }
-          return mapped
-        })
-        res.json(result)
+        res.json(response)
       })
     })
     .post((req, res) => {
@@ -78,6 +62,26 @@ module.exports = app => {
     })
     .delete((req, res) => {
       tube.deleteList(req.query.id, response => {
+        res.send(response)
+      })
+    })
+
+  app.route('/youtube/playlist/:id')
+    .get((req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      tube.getListItems(req.params.id, response => {
+        res.json(response)
+      })
+    })
+
+  app.route('/youtube/playlistItems')
+    .post((req, res) => {
+      tube.insertItem(req.body.idList, req.body.idVideo, response => {
+        res.send(response)
+      })
+    })
+    .delete((req, res) => {
+      tube.deleteItem(req.query.id, response => {
         res.send(response)
       })
     })

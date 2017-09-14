@@ -6,6 +6,7 @@ import Login from '@/components/Login'
 import Search from '@/components/Search'
 import Musics from '@/components/Musics'
 import Playlists from '@/components/Playlists'
+import List from '@/components/List'
 
 Vue.use(Router)
 Vue.use(Resource)
@@ -30,6 +31,10 @@ export default new Router({
       path: '/playlists',
       name: 'Playlists',
       component: Playlists
+    }, {
+      path: '/playlists/:id',
+      name: 'List',
+      component: List
     }
   ]
 })

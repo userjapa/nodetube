@@ -13,7 +13,7 @@
         <div class="flex"><h3>Options</h3></div>
       </div>
       <div class="container wrap wrap-tablet wrap-mobile">
-        <div v-for="x in lists" class="flex basis12 full shad">
+        <div v-for="x in lists" class="flex basis12 full shad" @click="goTo(x.id)">
           <div class="container wrap wrap-tablet wrap-mobile">
             <div class="flex">
               <img :src="x.img">
@@ -36,8 +36,8 @@
     name: 'playlists',
     data () {
       return {
-        lists: [],
-        name: ''
+        name: '',
+        lists: []
       }
     },
     methods: {
@@ -65,6 +65,7 @@
             })
           .finally(() => {
             this.get()
+            this.$data.name = ''
           })
       },
       remove: function (id) {
@@ -80,6 +81,9 @@
           .finally(() => {
             this.get()
           })
+      },
+      goTo: function (id) {
+        this.$router.push({ path: `/playlists/${id}` })
       }
     },
     mounted () {

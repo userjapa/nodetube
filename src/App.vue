@@ -3,9 +3,9 @@
     <header>
         <span>
             <b class="title">NodeTube</b>
-            <router-link class="space" to="search">Search</router-link>
-            <router-link class="space" to="musics">Muscis</router-link>
-            <router-link class="space" to="playlists">Lists</router-link>
+            <router-link class="space" :to="{ path: '/search'}">Search</router-link>
+            <router-link class="space" :to="{ path: '/musics'}">Muscis</router-link>
+            <router-link class="space" :to="{ path: '/playlists'}">Lists</router-link>
         </span>
     </header>
     <main>
