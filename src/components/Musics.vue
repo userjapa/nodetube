@@ -129,7 +129,6 @@
           }, true)
         },
         addTo: function (listId, videoId) {
-          this.$data.playlists.push(listId)
           this.$http.post('/youtube/playlistItems', {
             idList: listId,
             idVideo: videoId
