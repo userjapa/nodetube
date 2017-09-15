@@ -6,7 +6,7 @@ let fireApp = Firebase.initializeApp(auth)
 export default function (path) {
   this.db = fireApp.database().ref(path)
   this.add = (obj) => {
-    this.db.push(obj)
+    this.db.add(obj)
   }
   this.check = function (id) {
     return new Promise((resolve, reject) => {

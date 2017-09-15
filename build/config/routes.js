@@ -24,100 +24,65 @@ module.exports = app => {
 
   app.route('/youtube/token')
     .get((req, res) => {
-      tube.getToken(req.query.code)
-        .then(
-          response => {
-            res.send(response)
-          }, 
-          err => {
-            console.log(`Get Token: ${err}`)
-            res.send(err)
-          })
+      tube.getToken(req.query.code, (response) => {
+        res.send(response)
+      })
     })
 
   app.route('/youtube/music')
-    .post((req, res) => {
-      res.setHeader('Content-Type', 'application/json')
-      tube.search(req.body.search, 6)
-        .then(
-          response => {
-            var result = response.items.map(obj => {
-              var mapped = {
-                id: obj.id.videoId,
-                name: `${obj.snippet.title}.mp3`,
-                img: obj.snippet.thumbnails.high.url,
-                downloaded: false
-              }
-              return mapped
-            })
-            res.json(result)
-          },
-          err => {
-            console.log(`Get Music: ${err}`)
-            res.send(err)
-          })
-    })
     .get((req, res) => {
-      let download = new You2mp3(req.query.id)
-      var name = req.query.name
+      res.setHeader('Content-Type', 'application/json')
+      tube.search(req.query.search, 6, (response) => {
+        res.json(response)
+      })
+    })
+    .post((req, res) => {
+      let download = new You2mp3(req.body.id)
+      var name = req.body.name
       download.download(name)
-      res.send()
+      res.end()
     })
     .delete((req, res) => {
       file.delete(req.query.name)
-        .then(
-          resolve => {
-            console.log(`Deleted ${req.query.name}`)
-            res.send()
-          },
-        error => {
-            console.log(`Delete Music: ${error}`)
-            res.send()
-          })
+      res.end()
     })
+
   app.route('/youtube/playlist')
     .get((req, res) => {
       res.setHeader('Content-Type', 'application/json')
-      tube.getLists()
-        .then(
-          response => {
-            var result = response.items.map(obj => {
-              var mapped = {
-                id: obj.id,
-                img: obj.snippet.thumbnails.high.url,
-                name: obj.snippet.title
-              }
-              return mapped
-            })
-            res.json(result)
-          },
-          err => {
-            console.log(`Get List: ${err}`)
-            res.send(err)
-          })
+      tube.getLists((response) => {
+        res.json(response)
+      })
     })
     .post((req, res) => {
       res.setHeader('Content-Type', 'application/json')
-      tube.insertList(req.query.name)
-        .then(
-          response => {
-            res.json(response)
-          },
-          err => {
-            console.log(`Post List: ${err}`)
-            res.send(err)
-          })
+      tube.insertList(req.query.name, response => {
+        res.send(response)
+      })
+    })
+    .delete((req, res) => {
+      tube.deleteList(req.query.id, response => {
+        res.send(response)
+      })
     })
 
+  app.route('/youtube/playlist/:id')
+    .get((req, res) => {
+      res.setHeader('Content-Type', 'application/json')
+      tube.getListItems(req.params.id, response => {
+        res.json(response)
+      })
+    })
+
+  app.route('/youtube/playlistItems')
+    .post((req, res) => {
+      tube.insertItem(req.body.idList, req.body.idVideo, response => {
+        res.send(response)
+      })
+    })
     .delete((req, res) => {
-      tube.deleteList(req.query.id)
-        .then(
-          response => {
-            res.send(response)
-          },
-          err => {
-            console.log(`Delete List: ${err}`)
-            res.send(err)
-          })
+      tube.deleteItem(req.query.id, response => {
+        res.send(response)
+      })
     })
 }

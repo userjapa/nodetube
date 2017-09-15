@@ -29,7 +29,6 @@
 
 <script>
   import Firebase from './../modules/firebase'
-
   let db = new Firebase('/musics')
 
   export default {
@@ -43,49 +42,53 @@
     },
     methods: {
       search: function (txt) {
-        this.$http.post('/youtube/music', {
-          search: txt
+        this.$http.get('/youtube/music', {
+          params: {
+            search: txt
+          }
         })
         .then(
           response => {
+            console.log(response)
             this.$data.videos = response.body
-          }, error => {
+            this.$data.txt = ''
+          })
+        .catch(
+          error => {
             console.log('Error' + JSON.stringify(error))
           })
       },
       download: function (el) {
-        el.name = el.name.replace(/[#?]/g, '')
-        db.check(el.id).then(response => {
-          if (!response) {
-            el.name = el.name
-            db.add(el)
-          }
+        if (!db.check(el)) {
+          alert('Already Downloaded!')
+        } else {
+          el.name = el.name.replace(/[#?]/g, '')
+          db.add(el)
           db.get(el).then(res => {
             res.forEach((childSnapshot) => {
               var tmp = childSnapshot.val()
-              if (!tmp.downloaded) {
-                tmp.downloaded = true
-                db.db.child(childSnapshot.key).update(tmp)
-                var aux = {
+              tmp.downloaded = true
+              db.db.child(childSnapshot.key).update(tmp)
+              this.$http.post('/youtube/music',
+                {
                   id: el.id,
                   name: el.name
-                }
-                console.log(aux.name)
-                this.$http.get('/youtube/music', {
-                  params: aux
                 })
-                .then(
-                  response => {
-                    console.log('Finished')
-                  }, err => {
-                    console.log(err)
-                  })
-              } else {
-                alert('Já baixado!')
-              }
+              .then(
+                response => {
+                  console.log(response)
+                })
+              .catch(
+                err => {
+                  console.log(err)
+                })
+              .finally(
+                () => {
+                  console.log('Finished')
+                })
             })
           })
-        })
+        }
       }
     }
   }

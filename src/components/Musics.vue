@@ -16,7 +16,7 @@
             <div class="flex">Image</div>
             <div class="flex">Options</div>
           </div>
-          <div v-for="(x, index) in musics" class="container row  wrap-tablet wrap-mobile shad">
+          <div v-for="(x, index) in musics" :key="x.id" class="container row  wrap-tablet wrap-mobile shad">
             <div class="flex">
                 {{x.name.split('.mp3')[0]}} {{index}}
             </div>
@@ -36,6 +36,14 @@
                         </button>
                     </div>
                 </div>
+                <div class="container wrap wrap-tablet wrap-mobile center-center space-around" style="height: 100%">
+                  <div class="flex basis1">
+                    <select class="btn-border btn-border-primary btn-full" v-on:input="addTo($event.target.value, x.id)">
+                      <option selected disabled value="">Add to Playlist</option>
+                      <option v-for="y in lists" :key="y.id" :value="y.id" :disabled="check(x.playlists, y.id)">{{y.name}}</option>
+                    </select>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
@@ -54,7 +62,8 @@
           el: '',
           play: {},
           musics: [],
-          autoplay: false
+          autoplay: false,
+          lists: []
         }
       },
       methods: {
@@ -64,7 +73,9 @@
             .then(
               response => {
                 console.log(response)
-              }, err => {
+              })
+            .catch(
+              err => {
                 console.log(err)
               })
           this.$firebaseRefs.musics.child(obj['.key']).remove()
@@ -103,8 +114,8 @@
           var player = document.getElementById('player')
           this.$data.autoplay = !this.$data.autoplay
           console.log(this.$data.autoplay)
-          if (this.$data.autoplay) {
-            player.addEventListener('ended', () => {
+          player.addEventListener('ended', () => {
+            if (this.$data.autoplay) {
               var index = this.$data.musics.findIndex(x => x.name === this.$data.play.name)
               if (++index < this.$data.musics.length - 1) {
                 player.pause()
@@ -112,20 +123,34 @@
               } else {
                 this.plays(this.$data.musics[0])
               }
-            }, true)
-          } else {
-            player.removeEventListener('ended', () => {
-              var index = this.$data.musics.findIndex(x => x.name === this.$data.play.name)
-              if (++index < this.$data.musics.length - 1) {
-                player.pause()
-                this.plays(this.$data.musics[index])
-              } else {
-                this.plays(this.$data.musics[0])
-              }
-            }, true)
-            player.addEventListener('ended', () => {
+            } else {
               player.pause()
-            }, true)
+            }
+          }, true)
+        },
+        addTo: function (listId, videoId) {
+          this.$http.post('/youtube/playlistItems', {
+            idList: listId,
+            idVideo: videoId
+          })
+            .then(
+              res => {
+                console.log(res)
+              })
+            .catch(
+              err => {
+                console.log(err)
+              })
+        },
+        check: function (arr, id) {
+          if (arr) {
+            if (arr.includes(id)) {
+              return true
+            } else {
+              return false
+            }
+          } else {
+            return false
           }
         }
       },
@@ -133,6 +158,17 @@
         return {
           musics: db.db
         }
+      },
+      created () {
+        this.$http.get('/youtube/playlist')
+          .then(
+            res => {
+              this.$data.lists = res.body
+            })
+          .catch(
+            err => {
+              console.log(err)
+            })
       }
     }
 </script>
