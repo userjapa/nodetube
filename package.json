@@ -85,6 +85,7 @@
     "sinon": "^2.1.0",
     "sinon-chai": "^2.8.0",
     "sw-precache-webpack-plugin": "^0.11.4",
+    "the-grid-flexbox": "^1.0.1",
     "uglify-es": "^3.0.25",
     "url-loader": "^0.5.8",
     "vue-loader": "^12.2.2",
