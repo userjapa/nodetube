@@ -1,13 +1,21 @@
 <template>
-  <div class="container wrap  wrap-tablet wrap-mobile full" id="search">
+<div>
+
+    <div class="" id="search" >
      <div class="flex basis12">
          <form class="form" v-on:submit="search(txt)">
              <input type="text" v-model="txt" placeholder="Song?">
              <button type="submit" class="btn-border btn-border-success">Search</button>
          </form>
       </div>
+        
       <div class="flex basis12">
-          <div class="container wrap wrap-tablet wrap-mobile">
+        <div class="container wrap" v-show="isLoading" v-cloak>
+        <div  v-for="x in 3" class="flex-basis-300 flex-grow-1 card">
+      <placeholderContent type="card" :title="false" :imageSize="300" :description="true" :number="1" :photo="true" :head="false" :button="false"></placeholderContent>      
+  </div>
+  </div>
+          <div class="container wrap wrap-tablet wrap-mobile" v-show="!isLoading" v-cloak>
               <div v-for="x in videos" class="flex basis5 full shad">
                   <div class="container wrap wrap-tablet wrap-mobile">
                       <div class="flax full">
@@ -24,11 +32,12 @@
           </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script>
   import Firebase from './../modules/firebase'
+  import placeholderContent from './placeholderContent.vue'
   let db = new Firebase('/musics')
 
   export default {
@@ -37,11 +46,16 @@
       return {
         txt: '',
         videos: [],
-        x: 0
+        x: 0,
+        isLoading: false
       }
+    },
+    components: {
+      placeholderContent
     },
     methods: {
       search: function (txt) {
+        this.isLoading = true
         this.$http.get('/youtube/music', {
           params: {
             search: txt
@@ -49,12 +63,14 @@
         })
         .then(
           response => {
+            this.isLoading = false
             console.log(response)
             this.$data.videos = response.body
             this.$data.txt = ''
           })
         .catch(
           error => {
+            this.isLoading = false
             console.log('Error' + JSON.stringify(error))
           })
       },
@@ -95,6 +111,14 @@
 </script>
 
 <style>
+  .card {
+    padding: 20px
+  }
+  .size {
+    width: 1200px;
+    max-width: 90%;
+    margin: 0 auto
+  }
   h1 {
     font-weight: normal;
   }
