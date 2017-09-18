@@ -194,8 +194,8 @@
         this.$http.get('/youtube/playlist')
           .then(
             res => {
-              this.isLoading = false
               this.$data.lists = res.body
+              this.isLoading = false
             })
           .catch(
             err => {
