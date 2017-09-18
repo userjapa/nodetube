@@ -202,6 +202,8 @@
               this.isLoading = false
               console.log(err)
             })
+        console.log(JSON.stringify(this.$data.musics))
+        this.$emit('setter', this.$data.musics)
       }
     }
 </script>
