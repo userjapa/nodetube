@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Musics</h1>
-    <div class="container wrap  wrap-tablet wrap-mobile center-center">
+    <div class="container wrap  wrap-tablet wrap-mobile">
         <div class="flex basis12">
             <audio id="player" controls="controls" autobuffer preload="auto">
                 <source id="source" src="/static/music/" type="audio/mpeg">
@@ -11,11 +11,7 @@
             <button @click="playPrevious()">Previous</button>
         </div>
         <div class="flex basis12">
-          <div class="container row">
-            <div class="flex">Name</div>
-            <div class="flex">Image</div>
-            <div class="flex">Options</div>
-          </div>
+
           <!-- <div v-for="(x, index) in musics" :key="x.id" class="container row  wrap-tablet wrap-mobile shad">
             <div class="flex">
                 {{x.name.split('.mp3')[0]}} {{index}}
@@ -46,8 +42,12 @@
                 </div>
             </div>
           </div> -->
-
-          <div class="container wrap justify-content-start align-items-baseline size">
+          <div class="container wrap size" v-show="isLoading" v-cloak>
+            <div  v-for="x in 4" class="col-12 col-xl-3 col-lg-3 col-md-6 col-sm-12 card">
+              <placeholderContent type="card" :title="false" :imageSize="200" :description="true" :number="1" :photo="true" :head="false" :button="false"></placeholderContent>
+            </div>
+          </div>
+          <div class="container wrap justify-content-start align-items-baseline size" v-show="!isLoading" v-cloak>
 
               <div class="col-12 col-xl-3 col-lg-3 col-md-6 col-sm-12 box-youtube" v-for="(x, index) in musics" :key="x.id">
                 <div class="box-youtube-content">
@@ -80,12 +80,15 @@
 <script>
     import Firebase from './../modules/firebase'
     import playerTop from './playerTop'
+    import placeholderContent from '../../node_modules/monk-placeholder-content/src/components/placeholder-content.vue'
+
     let db = new Firebase('/musics')
 
     export default {
       name: 'musics',
       components: {
-        playerTop
+        playerTop,
+        placeholderContent
       },
       data () {
         return {
@@ -93,7 +96,8 @@
           play: {},
           musics: [],
           autoplay: false,
-          lists: []
+          lists: [],
+          isLoading: true
         }
       },
       methods: {
@@ -190,13 +194,16 @@
         }
       },
       created () {
+        this.isLoading = true
         this.$http.get('/youtube/playlist')
           .then(
             res => {
+              this.isLoading = false
               this.$data.lists = res.body
             })
           .catch(
             err => {
+              this.isLoading = false
               console.log(err)
             })
       }
