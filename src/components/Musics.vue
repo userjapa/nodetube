@@ -71,15 +71,12 @@
           </div>
         </div>
     </div>
-    <div id="playerTop">
-      <playerTop></playerTop>
-    </div>
+
   </div>
 </template>
 
 <script>
     import Firebase from './../modules/firebase'
-    import playerTop from './playerTop'
     import placeholderContent from '../../node_modules/monk-placeholder-content/src/components/placeholder-content.vue'
 
     let db = new Firebase('/musics')
@@ -87,7 +84,6 @@
     export default {
       name: 'musics',
       components: {
-        playerTop,
         placeholderContent
       },
       data () {
