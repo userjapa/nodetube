@@ -23,7 +23,7 @@
                           <iframe class="content" :src="'https://www.youtube.com/embed/' + x.id + '?color=white&controls=1&showinfo=0&iv_load_policy=3&modestbranding=1&playsinline=1'" frameborder="0" allowfullscreen></iframe>
                       </div>
                       <div class="flax full">
-                          <button v-on:click="download(x)" class="btn-border btn-border-success">Download</button>
+                          <button v-on:click="download(x)" class="btn-border btn-border-success" :disabled="downloading">Download</button>
                       </div>
                   </div>
               </div>
@@ -45,7 +45,8 @@
         txt: '',
         videos: [],
         x: 0,
-        isLoading: false
+        isLoading: false,
+        downloading: false
       }
     },
     components: {
@@ -72,10 +73,12 @@
             console.log('Error' + JSON.stringify(error))
           })
       },
-      download: function (el) {
-        if (!db.check(el)) {
+      download: async function (el) {
+        var teste = await db.check(el.id)
+        if (teste) {
           alert('Already Downloaded!')
         } else {
+          this.downloading = true
           el.name = el.name.replace(/[#?]/g, '')
           db.add(el)
           db.get(el).then(res => {
@@ -98,6 +101,7 @@
                 })
               .finally(
                 () => {
+                  this.downloading = false
                   console.log('Finished')
                 })
             })
