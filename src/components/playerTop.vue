@@ -142,7 +142,7 @@
         this.$data.autoplay = !this.$data.autoplay
         console.log(this.$data.autoplay)
         player.addEventListener('ended', () => {
-          if (this.$data.autoplay) {
+          if (!this.$data.autoplay) {
             var index = this.$data.musics.findIndex(x => x.name === this.$data.play.name)
             if (++index < this.$data.musics.length - 1) {
               player.pause()
@@ -152,7 +152,9 @@
             }
           } else {
             player.pause()
-            this.isPlay = false
+            player.currentTime = 0
+            player.play()
+            this.isPlay = true
           }
         }, true)
       },
