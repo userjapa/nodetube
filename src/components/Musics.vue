@@ -93,6 +93,21 @@
                 console.log(err)
               })
         },
+        auto: function () {
+          var player = document.getElementById('player')
+          this.$data.autoplay = !this.$data.autoplay
+          console.log(this.$data.autoplay)
+          if (this.$data.autoplay) {
+            console.log(player);
+            player.addEventListener('ended', () => {
+              var index = this.$data.musics.findIndex(x => x.name === this.$data.play.name)
+              if (++index < this.$data.musics.length - 1) {
+                player.pause()
+                this.plays(this.$data.musics[index])
+              } else {
+                this.plays(this.$data.musics[0])
+              }
+            }, true)
         check: function (arr, id) {
           if (arr) {
             if (arr.includes(id)) {
@@ -100,9 +115,6 @@
             } else {
               return false
             }
-          } else {
-            return false
-          }
         }
       },
       firebase () {
