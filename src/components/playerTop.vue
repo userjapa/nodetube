@@ -138,25 +138,7 @@
         }
       },
       auto: function () {
-        var player = document.getElementById('player')
         this.$data.autoplay = !this.$data.autoplay
-        console.log(this.$data.autoplay)
-        player.addEventListener('ended', () => {
-          if (!this.$data.autoplay) {
-            var index = this.$data.musics.findIndex(x => x.name === this.$data.play.name)
-            if (++index < this.$data.musics.length - 1) {
-              player.pause()
-              this.plays(this.$data.musics[index])
-            } else {
-              this.plays(this.$data.musics[0])
-            }
-          } else {
-            player.pause()
-            player.currentTime = 0
-            player.play()
-            this.isPlay = true
-          }
-        }, true)
       },
       changeTime: function (time) {
         var player = document.getElementById('player')
@@ -176,10 +158,25 @@
       player.addEventListener('loadeddata', () => {
         this.duration = player.duration
         this.currentTime = player.currentTime
-      })
+      }, true)
       player.addEventListener('timeupdate', () => {
         this.currentTime = player.currentTime
-      })
+      }, true)
+      player.addEventListener('ended', () => {
+        if (!this.$data.autoplay) {
+          var index = this.$data.musics.findIndex(x => x.name === this.$data.play.name)
+          if (++index < this.$data.musics.length - 1) {
+            this.playNext()
+          } else {
+            this.plays(this.$data.musics[0])
+          }
+        } else {
+          player.pause()
+          player.currentTime = 0
+          player.play()
+          this.isPlay = true
+        }
+      }, true)
     }
   }
 </script>
