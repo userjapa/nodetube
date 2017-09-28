@@ -1,6 +1,6 @@
 'use strict'
 
-const you2mp3 = require('youtube-mp3-downloader')
+const You2mp3 = require('youtube-mp3-downloader')
 
 module.exports = function (id) {
   this.id = id
@@ -8,8 +8,8 @@ module.exports = function (id) {
   let path = __dirname.split('/build/config/youtube')[0]
   path += '/static/music'
 
-  let YD = new you2mp3({
-    'ffmpegPath': '/usr/bin/ffmpeg',
+  let YD = new You2mp3({
+    'ffmpegPath': '/usr/local/bin/ffmpeg',
     'outputPath': path,
     'youtubeVideoQuality': 'highest',
     'queueParallelism': 2,
@@ -21,6 +21,7 @@ module.exports = function (id) {
       YD.download(this.id, name)
 
       YD.on('finished', (err, data) => {
+        if (err) reject(err)
         resolve(`${data.videoTitle} downloaded!`)
       })
 
