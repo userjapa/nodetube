@@ -118,7 +118,7 @@ module.exports = function () {
               listVideoId: obj.id,
               id: obj.snippet.resourceId.videoId,
               img: obj.snippet.thumbnails.high.url,
-              name: obj.snippet.title
+              name: obj.snippet.title+'.mp3'
             }
             return mapped
           })

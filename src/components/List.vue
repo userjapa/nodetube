@@ -11,6 +11,7 @@
               <h4>{{x.name}}</h4>
             </div>
             <div class="flex full">
+              <button @click="play(x)">Play</button>
               <button @click="remover(x.listVideoId)">Delete</button>
             </div>
           </div>
@@ -21,6 +22,8 @@
 </template>
 
 <script>
+  import musics from './global/musics'
+  
   export default {
     name: 'list',
     data () {
@@ -29,6 +32,9 @@
       }
     },
     methods: {
+      play: function (obj) {
+        musics.$emit('play', {music: obj, list: this.musics})
+      },
       get: function () {
         this.$http.get(`/youtube/playlist/${this.$route.params.id}`)
         .then(

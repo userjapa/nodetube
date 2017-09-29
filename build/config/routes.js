@@ -40,7 +40,14 @@ module.exports = app => {
       let download = new You2mp3(req.body.id)
       var name = req.body.name
       download.download(name)
-      res.end()
+        .then(
+          response => {
+            res.send(response)
+          },
+          error => {
+            console.log(error)
+            res.send('Could not download the file.')
+          })
     })
     .delete((req, res) => {
       file.delete(req.query.name)

@@ -10,14 +10,22 @@
     </header>
     <main>
       <router-view></router-view>
+      <div id="playerTop">
+        <playerTop></playerTop>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
-    export default {
-      name: 'app'
-    }
+import playerTop from './components/playerTop'
+
+export default {
+  name: 'app',
+  components: {
+    playerTop
+  }
+}
 </script>
 
 <style>
