@@ -3,7 +3,8 @@
 const Youtube = require('./youtube/youtube.js'),
   You2mp3 = require('./youtube/youtube-to-mp3.js'),
   file = require('./file/file.js'),
-  sinchronize = require('./synchronize/sinchronize-file.js')
+  sinchronize = require('./synchronize/sinchronize-file.js'),
+  stream = require('./stream/stream-audio.js')
 
 let tube = new Youtube()
 
@@ -92,5 +93,10 @@ module.exports = app => {
       tube.deleteItem(req.query.id, response => {
         res.send(response)
       })
+    })
+
+  app.route('/music/stream/:name')
+    .get((req, res) => {
+      stream(req.params.name, res)
     })
 }
