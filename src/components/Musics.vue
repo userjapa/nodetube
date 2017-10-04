@@ -10,7 +10,7 @@
           </div>
           <div class="container wrap justify-content-start align-items-baseline size" v-show="!isLoading" v-cloak>
 
-              <div class="col-12 col-xl-3 col-lg-3 col-md-6 col-sm-12 box-youtube" v-for="(x, index) in musics" :key="x.id">
+              <div class="col-12 col-xl-3 col-lg-3 col-md-6 col-sm-12 box-youtube" v-for="x in musics" :key="x.id">
                 <div class="box-youtube-content">
                   <div class="hover-play">
                     <div class="player-btn player-btn-play" v-cloak @click="plays(x)" >
@@ -21,7 +21,7 @@
                     <img :src="x.img" style="width: 100%; max-width: 300px; min-width: 100px;">
                   </div>
                   <div class="box-youtube-content-name">
-                    {{x.name.split('.mp3')[0]}} {{index}}
+                    {{x.name.split('.mp3')[0]}}
                     <span class="pointer" v-cloak @click="remove(x)" >
                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                     </span>
