@@ -64,7 +64,6 @@
       },
       methods: {
         remove: function (obj) {
-          // var name = obj.name.replace(/ /g, '%20')
           this.$http.delete('/youtube/music', {params: {name: obj.name}})
             .then(
               response => {

@@ -1,13 +1,13 @@
 <template lang="html">
   <div>
-    
+
     <div class="relative-player">
-    
+
       <div class="player container column space">
         <div class="timer">
           <input class="time" type="range" min="0" :max="duration" v-model="currentTime" @change="changeTime(currentTime)">
         </div>
-        
+
         <div class="container size margin justify-content-between align-items-center space">
 
           <div class="flex-basis-100 box">
@@ -40,9 +40,9 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-skip-forward"><polygon points="5 4 15 12 5 20 5 4"></polygon><line x1="19" y1="5" x2="19" y2="19"></line></svg>
             </div>
           </div>
-            
+
           <div class="flex-basis-100 box container justify-content-center align-items-center hide">
-            <div class="box">  
+            <div class="box">
               <div class="player-btn player-btn-play" @click="auto">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 51.4 51.4" style="enable-background:new 0 0 51.4 51.4;" xml:space="preserve" width="24" height="24">
                     <g>
@@ -59,7 +59,7 @@
             <div class="percent-vol">
               <input type="range" v-model="volume" min="0" max="1" step="0.1" @change="changeVolume(volume)"/>
             </div>
-            
+
             <div class="hidden">
               <audio id="player" controls="controls" autobuffer preload="auto">
                 <source id="source" src="" type="audio/mpeg">
@@ -115,7 +115,7 @@
           player.pause()
         }
         var music = obj.name.replace(/ /g, '%20')
-        var path = `/static/music/${music}`
+        var path = `/static/music/${music.replace(/[#?]/g, '')}`
         source.src = path
         player.load()
         player.play()
@@ -186,21 +186,21 @@
     margin: 0;
     padding: 0
   }
-  
+
   .size {
     width: 1400px;
     max-width: 95%;
   }
-  
+
   .margin {
     margin: 0 auto!important
   }
-  
+
   .relative-player {
     position: relative;
     height: 150px;
   }
-  
+
   .player {
     height: 100px;
     background: #2B2836;
@@ -208,12 +208,12 @@
     bottom: 0;
     width: 100vw;
   }
-  
+
   .box {
     padding: 5px;
     margin-right: 5px;
   }
-  
+
   .box-music .box-music-img {
     width: 50px;
     height: 50px;
@@ -221,21 +221,21 @@
     background: #403D4A;
     margin-right: 10px;
   }
-  
+
   .box-music .box-music-title {
     color: #fff
   }
-  
+
   .box-music .box-music-title h1 {
     font-size: 1rem;
     font-weight: 900
   }
-  
+
   .box-music .box-music-title p {
     font-size: .7rem;
     font-weight: 100
   }
-  
+
   .percent-vol {
     height: 4px;
     width: 130px;
@@ -243,28 +243,28 @@
     margin-left: 5px;
     border-radius: 4px;
   }
-  
+
   .player-btn {
     cursor: pointer;
     transition: .1s all
   }
-  
+
   .hidden {
     display: none;
   }
-  
+
   @media screen and (max-width: 480px) {
     .hide {
       display: none
     }
   }
-  
+
   .timer {
     height: 10px;
     width: 100%;
     background: #ccc;
   }
-  
+
   .ball-time {
     width: 15px;
     height: 15px;
@@ -278,7 +278,7 @@
     cursor: pointer;
     transition: .1 linear
   }
-  
+
   input[type=range]{
     -webkit-appearance: none;
     width: 100%;
@@ -292,7 +292,7 @@
     border: none;
     border-radius: 3px;
   }
-  
+
   input[type=range]:hover::-webkit-slider-runnable-track {
     height: 5px;
   }
@@ -309,7 +309,7 @@
     margin-top: -10px;
     transition: .1 linear
   }
-  
+
   input[type=range]:hover::-webkit-slider-thumb {
     transform: scale(1.2, 1.2);
     background: #ccc;
@@ -323,9 +323,9 @@
   input[type=range]:focus::-webkit-slider-runnable-track {
     background: darkgray;
   }
-  
+
   .space {
     margin-top: 5px !important;
   }
-  
+
 </style>

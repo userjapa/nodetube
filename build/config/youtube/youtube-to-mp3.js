@@ -22,6 +22,7 @@ module.exports = function (id) {
 
       YD.on('finished', (err, data) => {
         if (err) reject(err)
+        console.log(`Downloaded ${data.videoTitle}`)
         resolve(`${data.videoTitle} downloaded!`)
       })
 
