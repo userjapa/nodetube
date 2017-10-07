@@ -7,7 +7,7 @@ yarn-error.log*
 test/unit/coverage
 test/e2e/reports
 selenium-debug.log
-static/musics/
+static/music/
 
 # Editor directories and files
 .idea
@@ -15,3 +15,4 @@ static/musics/
 *.ntvs*
 *.njsproj
 *.sln
+static/music/*.mp3
