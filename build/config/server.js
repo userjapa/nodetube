@@ -10,7 +10,7 @@ module.exports = app => {
   app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Content-Lenght', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Content-Lenght', 'Content-Disposition', 'Authorization']
   }))
   app.use(helmet())
   app.use(compression())

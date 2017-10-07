@@ -4,7 +4,7 @@ const Youtube = require('./youtube/youtube.js'),
   You2mp3 = require('./youtube/youtube-to-mp3.js'),
   file = require('./file/file.js'),
   sinchronize = require('./synchronize/sinchronize-file.js'),
-  stream = require('./stream/stream-audio.js')
+  fs = require('fs')
 
 let tube = new Youtube()
 
@@ -95,8 +95,22 @@ module.exports = app => {
       })
     })
 
-  app.route('/music/stream/:name')
-    .get((req, res) => {
-      stream(req.params.name, res)
+  app.route('/music/stream')
+    .post((req, res) => {
+      console.log('Get stream')
+      var stat = fs.statSync(`./static/music/${req.body.name}`)
+
+      // res.writeHead(200, {
+      //     'Content-Type': 'audio/ogg',
+      //     'Content-Length': stat.size,
+      //     'Content-Disposition': `attachment; filename=${req.body.name}`
+      // });
+
+      res.setHeader('Content-Length', stat.size)
+      res.setHeader('Content-Type', 'audio/mp3')
+      res.setHeader('Content-Disposition', 'attachment; filename=your_file_name')
+      // res.download(`./static/music/${req.body.name}`, req.body.name)
+      var fileStream = fs.createReadStream(`./static/music/${req.body.name}`)
+      res.pipe(fileStream)
     })
 }

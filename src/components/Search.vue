@@ -84,7 +84,6 @@
           db.get(el).then(res => {
             res.forEach((childSnapshot) => {
               var tmp = childSnapshot.val()
-              tmp.downloaded = true
               db.db.child(childSnapshot.key).update(tmp)
               this.$http.post('/youtube/music',
                 {

@@ -29,7 +29,7 @@
                       <option selected disabled value="">Add to Playlist</option>
                       <option v-for="y in lists" :key="y.id" :value="y.id" :disabled="check(x.playlists, y.id)">{{y.name}}</option>
                     </select>
-                    <button @click="download(`${x.name.replace(/[#?]/g)}.mp3`)">
+                    <button @click="download(`${x.name.replace(/[#?]/g)}`)">
                       Download
                     </button>
                   </div>
@@ -107,15 +107,15 @@
           }
         },
         download: function (nome) {
-          this.$http.get(`/music/stream?name=${nome}`)
+          this.$http.post(`/music/stream`, {name: nome})
             .then(
               res => {
                 console.log(res)
               })
-              .catch(
-                err => {
-                  console.log(err)
-                })
+            .catch(
+              err => {
+                console.log(err)
+              })
         }
       },
       firebase () {
