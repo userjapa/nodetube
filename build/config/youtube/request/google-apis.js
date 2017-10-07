@@ -12,8 +12,8 @@ const myAuth = new OAuth2(
 const scope = myAuth.generateAuthUrl({
   access_type: 'offline',
   scope: [
-      'https://www.googleapis.com/auth/youtube'
-    ]
+    'https://www.googleapis.com/auth/youtube'
+  ]
 })
 
 var part = {

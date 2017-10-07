@@ -2,12 +2,13 @@
 
 const Youtube = require('./youtube/youtube.js'),
   You2mp3 = require('./youtube/youtube-to-mp3.js'),
-  file = require('./file/file.js')
+  file = require('./file/file.js'),
+  sinchronize = require('./synchronize/sinchronize-file.js'),
+  stream = require('./stream/stream-audio.js')
 
 let tube = new Youtube()
 
 module.exports = app => {
-
   app.route('/')
     .get((req, res) => {
       res.writeHead(200, {
@@ -24,7 +25,7 @@ module.exports = app => {
 
   app.route('/youtube/token')
     .get((req, res) => {
-      tube.getToken(req.query.code, (response) => {
+      tube.getToken(req.query.code, response => {
         res.send(response)
       })
     })
@@ -32,7 +33,7 @@ module.exports = app => {
   app.route('/youtube/music')
     .get((req, res) => {
       res.setHeader('Content-Type', 'application/json')
-      tube.search(req.query.search, 6, (response) => {
+      tube.search(req.query.search, 6, response => {
         res.json(response)
       })
     })
@@ -57,7 +58,8 @@ module.exports = app => {
   app.route('/youtube/playlist')
     .get((req, res) => {
       res.setHeader('Content-Type', 'application/json')
-      tube.getLists((response) => {
+      tube.getLists(response => {
+        sinchronize()
         res.json(response)
       })
     })
@@ -91,5 +93,10 @@ module.exports = app => {
       tube.deleteItem(req.query.id, response => {
         res.send(response)
       })
+    })
+
+  app.route('/music/stream/:name')
+    .get((req, res) => {
+      stream(req.params.name, res)
     })
 }
