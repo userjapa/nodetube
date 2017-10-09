@@ -4,7 +4,7 @@ import auth from './../../config/auth.json'
 let fireApp = Firebase.initializeApp(auth)
 
 export default function (path) {
-  this.db = fireApp.database().ref(path)
+  this.db = fireApp.database().ref(`${path}/rica`)
   this.add = (obj) => {
     this.db.push(obj)
   }

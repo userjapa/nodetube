@@ -9,7 +9,7 @@ module.exports = function (id) {
   path += '/static/music'
 
   let YD = new You2mp3({
-    'ffmpegPath': '/usr/local/bin/ffmpeg',
+    'ffmpegPath': '/usr/bin/ffmpeg',
     'outputPath': path,
     'youtubeVideoQuality': 'highest',
     'queueParallelism': 2,

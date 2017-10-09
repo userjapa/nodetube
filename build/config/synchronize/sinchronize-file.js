@@ -10,7 +10,7 @@ let youtube = new Request()
 
 var sync = false
 
-const db = fireapp.database().ref('/musics')
+const db = fireapp.database().ref('/musics/rica')
 
 const getData = () => {
   return new Promise((resolve, reject) => {
