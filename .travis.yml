@@ -6,15 +6,13 @@ node_js:
 
 deploy:
   - provider: heroku
-    api_key:
-      secure: $HEROKU_AUTH_TOKEN
+    api_key: $HEROKU_AUTH_TOKEN
     app: nodetube-project-staging
     on:
       repo: usuarioJapa/nodetube
       branch: develop
   - provider: heroku
-    api_key:
-      secure: $HEROKU_AUTH_TOKEN
+    api_key: $HEROKU_AUTH_TOKEN
     app: nodetube-project-production
     on:
       repo: usuarioJapa/nodetube
