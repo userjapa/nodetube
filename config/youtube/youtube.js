@@ -46,7 +46,7 @@ module.exports = function () {
   }
   this.getLists = (callback) => {
     var body = {
-      channelId: `UCyEr_DZjqy7j0JmrXcPQZjA`
+      channelId: `UC3RbuqXHUjECRKgRvOtdJBA`
     }
     request.playlists.search(body)
       .then(
