@@ -1,11 +1,11 @@
 import Vue from 'vue'
-import Main from '@/components/Main'
+import Login from '@/components/Login'
 
 describe('Main.vue', () => {
   it('should render correct contents', () => {
-    const Constructor = Vue.extend(Main)
+    const Constructor = Vue.extend(Login)
     const vm = new Constructor().$mount()
-    expect(vm.$el.querySelector('#search h1').textContent)
+    expect(vm.$el.querySelector('h1').textContent)
       .to.equal('NodeTube')
   })
 })

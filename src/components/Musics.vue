@@ -53,7 +53,7 @@
     var a = document.createElement('a')
     document.body.appendChild(a)
     a.style = 'display: none'
-
+    
     export default {
       name: 'musics',
       components: {

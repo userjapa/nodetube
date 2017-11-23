@@ -4,27 +4,18 @@ language: node_js
 node_js:
   - 9.2.0
 
-sudo: false
-
-jobs:
-  include:
-    - stage: unit tests
-      script: echo one
-    - stage: unit tests
-      script: echo two
-    - stage: deploy to staging
-      script: skip
-      deploy: &heroku
-        provider: heroku
-        app: nodetube-project
-        api_key: $HEROKU_AUTH_TOKEN
-        on: nodetube-project
-    - stage: test staging
-      script: 'curl http://nodetube-project.herokuapp.com'
-    - stage: deploy to production
-      script: /bin/true
-      deploy:
-        <<: *heroku
-        app: nodetube-project
-    - stage: test production
-      script: 'curl http://nodetube-project.herokuapp.com'
+deploy:
+  - provider: heroku
+    api_key:
+      secure: $HEROKU_AUTH_TOKEN
+    app: nodetube-project-staging
+    on:
+      repo: usuarioJapa/nodetube
+      branch: develop
+  - provider: heroku
+    api_key:
+      secure: $HEROKU_AUTH_TOKEN
+    app: nodetube-project-production
+    on:
+      repo: usuarioJapa/nodetube
+      branch: master
