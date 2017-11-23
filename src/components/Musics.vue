@@ -25,11 +25,11 @@
                     <span class="pointer" v-cloak @click="remove(x)" >
                       <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                     </span>
-                    <select class="btn-border btn-border-primary btn-full" v-on:input="addTo($event.target.value, x.id)">
+                    <select class="btn-border btn-border-primary" v-on:input="addTo($event.target.value, x.id)">
                       <option selected disabled value="">Add to Playlist</option>
                       <option v-for="y in lists" :key="y.id" :value="y.id" :disabled="check(x.playlists, y.id)">{{y.name}}</option>
                     </select>
-                    <button @click="download(`${x.name.replace(/[#?]/g)}`)">
+                    <button class="btn-border btn-border-success" @click="download(x)" :disabled="downloading">
                       Download
                     </button>
                   </div>
@@ -50,6 +50,10 @@
 
     let db = new Firebase('/musics')
 
+    var a = document.createElement('a')
+    document.body.appendChild(a)
+    a.style = 'display: none'
+
     export default {
       name: 'musics',
       components: {
@@ -62,12 +66,13 @@
           musics: [],
           autoplay: false,
           lists: [],
-          isLoading: true
+          isLoading: true,
+          downloading: false
         }
       },
       methods: {
         remove: function (obj) {
-          this.$http.delete('/youtube/music', {params: {name: obj.name}})
+          this.$http.delete('/api/youtube/music', {params: {name: obj.name}})
             .then(
               response => {
                 console.log(response)
@@ -82,7 +87,7 @@
           musics.$emit('play', {music: obj, list: this.musics})
         },
         addTo: function (listId, videoId) {
-          this.$http.post('/youtube/playlistItems', {
+          this.$http.post('/api/youtube/playlistItems', {
             idList: listId,
             idVideo: videoId
           })
@@ -106,16 +111,33 @@
             return false
           }
         },
-        download: function (nome) {
-          this.$http.post(`/music/stream`, {name: nome})
+        download: function (obj) {
+          if (!this.downloading) {
+            this.downloading = true
+            this.$http({
+              method: 'POST',
+              url: `/api/music/stream`,
+              body: {name: obj.name.replace(/[#?]/g, '')},
+              responseType: 'arraybuffer'
+            })
             .then(
               res => {
                 console.log(res)
+                var blob = new Blob([res.data], {type: 'application/mp3'})
+                var url = window.URL.createObjectURL(blob)
+                a.href = url
+                a.download = obj.name.replace(/[#?]/g, '')
+                a.click()
+                window.URL.revokeObjectURL(url)
               })
             .catch(
               err => {
                 console.log(err)
               })
+            .finally(() => {
+              this.downloading = false
+            })
+          }
         }
       },
       firebase () {
@@ -125,7 +147,7 @@
       },
       created () {
         this.isLoading = true
-        this.$http.get('/youtube/playlist')
+        this.$http.get('/api/youtube/playlist')
           .then(
             res => {
               this.$data.lists = res.body
@@ -136,7 +158,6 @@
               this.isLoading = false
               console.log(err)
             })
-        console.log(JSON.stringify(this.$data.musics))
       }
     }
 </script>

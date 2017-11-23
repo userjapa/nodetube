@@ -55,7 +55,7 @@
     methods: {
       search: function (txt) {
         this.isLoading = true
-        this.$http.get('/youtube/music', {
+        this.$http.get('/api/youtube/music', {
           params: {
             search: txt
           }
@@ -85,7 +85,7 @@
             res.forEach((childSnapshot) => {
               var tmp = childSnapshot.val()
               db.db.child(childSnapshot.key).update(tmp)
-              this.$http.post('/youtube/music',
+              this.$http.post('/api/youtube/music',
                 {
                   id: el.id,
                   name: el.name

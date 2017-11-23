@@ -55,7 +55,7 @@
       },
       get: function () {
         this.isLoading = true
-        this.$http.get(`/youtube/playlist/${this.$route.params.id}`)
+        this.$http.get(`/api/youtube/playlist/${this.$route.params.id}`)
         .then(
           res => {
             this.isLoading = false
@@ -71,7 +71,7 @@
       },
       remover: function (id) {
         console.log(id)
-        this.$http.delete(`/youtube/playlistItems?id=${id}`)
+        this.$http.delete(`/api/youtube/playlistItems?id=${id}`)
           .then(
             res => {
               console.log(res)

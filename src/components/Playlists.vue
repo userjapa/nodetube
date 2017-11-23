@@ -61,7 +61,7 @@
     methods: {
       get: function () {
         this.isLoading = true
-        this.$http.get('/youtube/playlist')
+        this.$http.get('/api/youtube/playlist')
           .then(
             response => {
               console.log(response)
@@ -75,7 +75,7 @@
             })
       },
       insert: function (name) {
-        this.$http.post(`/youtube/playlist?name=${name}`)
+        this.$http.post(`/api/youtube/playlist?name=${name}`)
           .then(
             res => {
               console.log(res)
@@ -90,7 +90,7 @@
           })
       },
       remove: function (id) {
-        this.$http.delete(`/youtube/playlist?id=${id}`)
+        this.$http.delete(`/api/youtube/playlist?id=${id}`)
           .then(
             res => {
               console.log(res)
