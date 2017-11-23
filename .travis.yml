@@ -1,18 +1,18 @@
 language: node_js
-
-# test on two node.js versions: 0.6 and 0.8
 node_js:
-  - 9.2.0
-
+- 9.2.0
 deploy:
+  matrix:
   - provider: heroku
-    api_key: $HEROKU_AUTH_TOKEN
+    api_key:
+      secure: "Vm8vySB7uoHZRWLv+DtDi6Vh+J0NxclcJ5s0TLjiedZA/ZC1Ns4koQWPTc1vS3fs3KcdALWCgoXCfT+E/HoYCWvYxANFVHINyW+2iP+P58Oco5uTnyoHpVWm42H/kge8LJ2fdE10XjcMEznIp9GDsFN5ic9ufwSIW98cHRYtkbH593ugLsGajZavA0BofNRR2ojH0iMqSuoc5NTq8vfJlpZc5v/wfzBS3KY8YDVyiQlqk2PYJJeN0KioTGyN+Z8zeChHcGjzducZu6WGNG7fVX/hEqFePnHO4h1aX0yYdgF3bL1BXfvqFy7tZFTp2o38MvjDUoWvBPclm1EObGUjn7BEeYmKvozutjkfjXfPJkldzO4gwSffOxY37vdRhGMdmJOO+LqALixbZqImxkAdBCrcXN7Z9jwgVQs3z+gfLcfpyQyajTh52FdkKOGTzw+XW4H+UC/zaAEwG+gUKVdi+yO9Ycsim/XJbWZ+X/KOeCJl2DA9a4Qswhujmxm/JmGkt0H5KhwBmK1x+w+Af17r02vKUK2efLmw86FV7GeB4YYGW8Xallc8KCYC+UeCeYsa+o3X9ElRA5rFAgBNd4lUE6dY6QvKKsDUnjKAXZ44Uc7nH9HI+QvyaVNsNqP7i7XXfGcaWW0es3xJ+D7uGRho6z7iqwITD6WfHxg1N3h0pGM="
     app: nodetube-project-staging
     on:
       repo: usuarioJapa/nodetube
       branch: develop
   - provider: heroku
-    api_key: $HEROKU_AUTH_TOKEN
+    api_key:
+      secure: "Vm8vySB7uoHZRWLv+DtDi6Vh+J0NxclcJ5s0TLjiedZA/ZC1Ns4koQWPTc1vS3fs3KcdALWCgoXCfT+E/HoYCWvYxANFVHINyW+2iP+P58Oco5uTnyoHpVWm42H/kge8LJ2fdE10XjcMEznIp9GDsFN5ic9ufwSIW98cHRYtkbH593ugLsGajZavA0BofNRR2ojH0iMqSuoc5NTq8vfJlpZc5v/wfzBS3KY8YDVyiQlqk2PYJJeN0KioTGyN+Z8zeChHcGjzducZu6WGNG7fVX/hEqFePnHO4h1aX0yYdgF3bL1BXfvqFy7tZFTp2o38MvjDUoWvBPclm1EObGUjn7BEeYmKvozutjkfjXfPJkldzO4gwSffOxY37vdRhGMdmJOO+LqALixbZqImxkAdBCrcXN7Z9jwgVQs3z+gfLcfpyQyajTh52FdkKOGTzw+XW4H+UC/zaAEwG+gUKVdi+yO9Ycsim/XJbWZ+X/KOeCJl2DA9a4Qswhujmxm/JmGkt0H5KhwBmK1x+w+Af17r02vKUK2efLmw86FV7GeB4YYGW8Xallc8KCYC+UeCeYsa+o3X9ElRA5rFAgBNd4lUE6dY6QvKKsDUnjKAXZ44Uc7nH9HI+QvyaVNsNqP7i7XXfGcaWW0es3xJ+D7uGRho6z7iqwITD6WfHxg1N3h0pGM="
     app: nodetube-project-production
     on:
       repo: usuarioJapa/nodetube
