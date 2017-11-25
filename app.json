@@ -1,0 +1,18 @@
+{
+  "name": "nodetube",
+  "description": "NodeTube app.json file for deploy",
+  "scripts": {
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}

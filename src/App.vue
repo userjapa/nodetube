@@ -10,33 +10,43 @@
     </header>
     <main>
       <router-view></router-view>
+      <div id="playerTop">
+        <playerTop></playerTop>
+      </div>
     </main>
   </div>
 </template>
 
 <script>
-    export default {
-      name: 'app'
-    }
+import playerTop from './components/playerTop'
+
+export default {
+  name: 'app',
+  components: {
+    playerTop
+  }
+}
 </script>
 
 <style>
     @import url('https://fonts.googleapis.com/css?family=Gudea');
+    @import url('../node_modules/the-grid-flexbox/css/the-grid.min.css');
+    @import url('./assets/css/style.css');
     body {
         margin: 0;
         font-family: 'Gudea', sans-serif;
     }
-    
+
     #app {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
-    
+
     main {
         text-align: center;
         margin-top: 40px;
     }
-    
+
     header {
         margin: 0;
         height: 56px;
@@ -45,7 +55,7 @@
         color: #ffffff;
         text-align: center;
     }
-    
+
     header span {
         display: block;
         position: relative;
@@ -56,11 +66,11 @@
         box-sizing: border-box;
         padding-top: 16px;
     }
-    
+
     .title {
         margin-right: 15%;
     }
-    
+
     .space {
         text-decoration: none;
         color: white;

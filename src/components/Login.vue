@@ -23,26 +23,31 @@
     },
     methods: {
       login: function () {
-        this.$http.get('/youtube/auth')
+        this.$http.get('/api/youtube/auth')
           .then(
             response => {
-              console.log(response.body)
+              console.log('Getting URL')
               var windowOpen = window.open(response.body, 'google', 'width=300px, height:300px')
               var polltime = setInterval(() => {
                 try {
-                  if (windowOpen.document.URL.indexOf('http://localhost:8080') !== -1) {
-                    windowOpen.close()
-                    window.clearInterval(polltime)
-                    var urlCode = windowOpen.document.URL
-                    var idx = urlCode.lastIndexOf('code=')
-                    var code = urlCode.substring(idx + 5).replace(/#/g, '')
-                    console.log(code)
-                    this.getToken(code)
+                  console.log(windowOpen)
+                  if (windowOpen) {
+                    console.log(windowOpen.document.URL)
+                    console.log(windowOpen.document.URL.indexOf(window.location.host))
+                    if (windowOpen.document.URL.indexOf(window.location.host) > 0) {
+                      var urlCode = windowOpen.document.URL
+                      var idx = urlCode.lastIndexOf('code=')
+                      var code = urlCode.substring(idx + 5).replace(/#/g, '')
+                      console.log(code)
+                      this.getToken(code)
+                      windowOpen.close()
+                      window.clearInterval(polltime)
+                    }
                   }
                 } catch (err) {
                   console.log(err)
                 }
-              })
+              }, 1000)
             })
           .catch(
             err => {
@@ -50,9 +55,10 @@
             })
       },
       getToken: function (code) {
-        this.$http.get(`/youtube/token?code=${code}`)
+        this.$http.get(`/api/youtube/token?code=${code}`)
           .then(
             response => {
+              console.log(response)
               window.location.href += 'musics'
             })
           .catch(

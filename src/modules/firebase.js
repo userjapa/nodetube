@@ -4,9 +4,9 @@ import auth from './../../config/auth.json'
 let fireApp = Firebase.initializeApp(auth)
 
 export default function (path) {
-  this.db = fireApp.database().ref(path)
+  this.db = fireApp.database().ref(`${path}/japa`)
   this.add = (obj) => {
-    this.db.add(obj)
+    this.db.push(obj)
   }
   this.check = function (id) {
     return new Promise((resolve, reject) => {

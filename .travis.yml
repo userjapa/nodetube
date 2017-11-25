@@ -1,0 +1,11 @@
+language: node_js
+node_js:
+- 9.2.0
+deploy:
+  script: 'git add . && git commit -am "build to deploy"'
+  provider: heroku
+  api_key:
+    secure: ''
+  app: nodetube-project-production
+  on:
+    repo: usuarioJapa/nodetube

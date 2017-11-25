@@ -5,6 +5,10 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
+if (!process.env.PORT) {
+  process.env.PORT = 8080
+}
+
 var opn = require('opn')
 var path = require('path')
 var express = require('express')
@@ -87,8 +91,8 @@ devMiddleware.waitUntilValid(() => {
 })
 
 consign()
-    .include('build/config/server.js')
-    .then('build/config/routes.js')
+    .include('config/server.js')
+    .then('config/routes.js')
     .into(app)
 
 var server = app.listen(port)
