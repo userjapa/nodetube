@@ -5,7 +5,7 @@ deploy:
   script: 'git add . && git commit -am "build to deploy"'
   provider: heroku
   api_key:
-    secure: zFRKX6fgeBOU0YMdnaCQvtFDgCIccwT4s4iFi4VUXm9Fyt+SgqQtxQ23FUffNHTXmSXzzO74DJgZajAbL2iaSTAITFgvB4Zhxe8V4LIFDCsXNzLrZAPBxVMerDe4FDegD3YVrWWt86+NUUPXTVzyQ4qo3/tE2X0e0sbEeJfR98J7LDwJrXFbUxI5DJteKm7+67ABa+1uBMvXcoD7KoQuQvVHAfaJwgF9w8/0f2mHUq/iQaPo7VertN2k0mD4QmM2h8rxctGdDOBEI8XrIgqqPI0D8Qt5Fg6KI9M1qQqoiABMmMmK8GEDX24t3XKpMN71AnqT4wfeXjUg+hTzG4iDbU1QMXyIXL8QwVAgQx2zlLsl3MVjnRHHHCpRKAgj1i2Kaq5xmdnN7v03jxFhTJUMPAwossxUShynmG0A8Eg2eCXgzHJNmkO1Pg9TlaZSBedvfKcfX81lgnj8JR7Zv2UZng83uEnkFavIrDFExW6HWHINJ0DCPG3oRQhafHdHe6rsf2fJZldLSt8E/nMZeJClxfHF0Lk0MuB84DokI7lqK5qTyhqTMXLh5C3H+ynyHqagtowAvKqgNELFV0cPQIeLGFNP3lAG67+ATkj5X8hiyInzzcOUD4nQMyyx4qwfsPGzAun/RondPD71V2ZNmqGToneXHYXlILmM5zBAxT0eGRU=
+    secure: ''
   app: nodetube-project-production
   on:
     repo: usuarioJapa/nodetube
